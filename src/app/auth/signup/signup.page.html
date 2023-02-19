@@ -1,0 +1,58 @@
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <div class="grid p-fluid">
+        <div class="col-12 md:col-4">
+          <div class="text-center fs-1 fw-bold">Get registered</div>
+          <div class="text-center fs-6 mb-3 login-label">
+            Sign up now & connect with us
+          </div>
+          <form [formGroup]="signupForm" (ngSubmit)="submitSignupForm(signupForm.value)">
+            <!-- Email feild -->
+            <div class="mb-3">
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><ion-icon name="mail-outline"></ion-icon></span>
+                <input type="text" formControlName="email" class="input-box" pInputText placeholder="Email Address">         
+              </div>
+              <div class="text-danger" *ngIf="formSubmitted && 
+                (signupForm.get('email')?.hasError('required') || signupForm.get('email')?.hasError('email'))">
+                * Please enter valid email !
+              </div>
+            </div>
+
+            <!-- Password feild -->
+            <div class="mb-3">
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </span>
+                <input type="password" formControlName="password" class="input-box" pInputText placeholder="Password">         
+              </div>
+              <div class="text-danger" *ngIf="formSubmitted &&
+                (signupForm.get('password')?.hasError('required') || signupForm.get('password')?.value.length < 8)">
+                * Please enter 8 digit password !
+              </div>
+            </div>
+
+            <!-- Confirm password feild -->
+            <div class="mb-3">
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </span>
+                <input type="password" formControlName="confirmPassword" class="input-box" pInputText placeholder="Confirm Password">         
+              </div>
+              <div class="text-danger" *ngIf="formSubmitted && 
+                (signupForm.get('confirmPassword')?.hasError('required') || signupForm.get('confirmPassword')?.value.length < 8)">
+                * Please enter 8 digit password !
+              </div>
+            </div>
+
+            <ion-button expand="full" class="login-btn mb-5" shape="round" type="submit">Sign up</ion-button>
+          </form>
+          <div class="text-center mb-1 create-account fw-bold " routerLink="/login">Already have account</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
