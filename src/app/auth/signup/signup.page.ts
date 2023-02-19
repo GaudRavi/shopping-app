@@ -13,6 +13,8 @@ export class SignupPage implements OnInit {
 
   signupForm!: FormGroup;
   formSubmitted: boolean = false;
+  showPassword: boolean = false;
+  showConfPassword: boolean = false;
   constructor(
     private fb: FormBuilder,
     private authservice: AuthService,
@@ -36,6 +38,13 @@ export class SignupPage implements OnInit {
       this.authservice.SignUp(cred.email, cred.password);
       this.formSubmitted = false;
     }
+  }
+
+  togglePassword(feild: string){
+    if(feild === 'password')
+    this.showPassword = !this.showPassword;
+    if(feild === 'confirmPassword')
+    this.showConfPassword = !this.showConfPassword;
   }
 
 }

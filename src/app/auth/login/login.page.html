@@ -2,10 +2,10 @@
   <div class="container-login100">
     <div class="wrap-login100">
       <div class="grid p-fluid">
-        <div class="col-12 md:col-4">
+        <div class="col-12 md:col-4" *ngIf="!forgotPassword">
           <div class="text-center fs-1 fw-bold">Welcome Back</div>
           <div class="text-center fs-6 mb-3 login-label">
-            Login in to continue to your account
+            Login to continue to your account
           </div>
           <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm(loginForm.value)">
             <!-- Email feild -->
@@ -28,7 +28,11 @@
                 <span class="p-inputgroup-addon">
                   <ion-icon name="lock-closed-outline"></ion-icon>
                 </span>
-                <input type="password" formControlName="password" class="input-box" pInputText placeholder="Password">         
+                <span class="p-input-icon-right">
+                  <i class="pi pi-eye" *ngIf="!showPassword" (click)="togglePassword()"></i>
+                  <i class="pi pi-eye-slash dispPass" *ngIf="showPassword" (click)="togglePassword()"></i>
+                  <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="input-box w-100 passwordInput" pInputText placeholder="Password">      
+                </span>
               </div>
               <div class="text-danger" *ngIf="formSubmitted &&
               (loginForm.get('password')?.hasError('required') || loginForm.get('password')?.value.length < 8)">
@@ -37,14 +41,40 @@
             </div>
 
             <!-- Others feild -->
-            <div class="text-end text-danger mb-3">
+            <div class="text-end text-danger mb-3" (click)="redirectToForgotPass()">
               Forgot Password?
             </div>
 
             <ion-button expand="full" class="login-btn mb-5" shape="round" type="submit">Log in</ion-button>
           </form>
           <div class="text-center mb-1">Don't have an account?</div>
-          <div class="text-center fw-bold create-account" (click)="go()">Create account</div>
+          <div class="text-center fw-bold create-account" routerLink="/signup">Create account</div>
+        </div>
+
+        <!-- Forgot password page -->
+        <div class="col-12 md:col-4" *ngIf="forgotPassword">
+          <div class="text-center fs-1 fw-bold">Forgot Password</div>
+          <div class="text-center fs-6 mb-3 login-label">
+            Enter you registered email
+          </div>
+          <form [formGroup]="forgotPasswordForm" (ngSubmit)="submitForgotPassForm(forgotPasswordForm.value)">
+            <!-- Email feild -->
+            <div class="mb-3">
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                  <ion-icon name="mail-outline"></ion-icon>
+                </span>
+                <input type="text" formControlName="email" class="input-box" pInputText placeholder="Registered email">         
+              </div>
+              <div class="text-danger" *ngIf="passwordFormSubmitted && 
+              (forgotPasswordForm.get('email')?.hasError('required') || forgotPasswordForm.get('email')?.hasError('email'))">
+              * Please enter valid email !
+            </div>
+            </div>
+
+            <ion-button expand="full" class="login-btn mb-5" shape="round" type="submit">Reset password</ion-button>
+          </form>
+          <div class="text-center fw-bold create-account" (click)="redirectToLoginPage()">Back to login page</div>
         </div>
       </div>
     </div>

@@ -37,3 +37,14 @@ body, html {
     --dynamic-font-bold:"poppinsBold";
     --dynamic-font-light:"poppinsLight";
 }
+
+.commonLoader .sc-ion-loading-md-h, .commonLoader .sc-ion-loading-ios-h{
+    --max-width: 80px !important;
+    --max-height: 80px !important;
+}
+
+.commonLoader .loading-wrapper {
+    width: 85px!important;
+    height: 85px!important;
+    border-radius: 10px!important;
+}

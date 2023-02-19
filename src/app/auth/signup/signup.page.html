@@ -3,9 +3,9 @@
     <div class="wrap-login100">
       <div class="grid p-fluid">
         <div class="col-12 md:col-4">
-          <div class="text-center fs-1 fw-bold">Get registered</div>
+          <div class="text-center fs-1 fw-bold">Get Registered</div>
           <div class="text-center fs-6 mb-3 login-label">
-            Sign up now & connect with us
+            Sign up now and connect with us
           </div>
           <form [formGroup]="signupForm" (ngSubmit)="submitSignupForm(signupForm.value)">
             <!-- Email feild -->
@@ -26,7 +26,11 @@
                 <span class="p-inputgroup-addon">
                   <ion-icon name="lock-closed-outline"></ion-icon>
                 </span>
-                <input type="password" formControlName="password" class="input-box" pInputText placeholder="Password">         
+                <span class="p-input-icon-right">
+                  <i class="pi pi-eye" *ngIf="!showPassword" (click)="togglePassword('password')"></i>
+                  <i class="pi pi-eye-slash dispPass" *ngIf="showPassword" (click)="togglePassword('password')"></i>
+                  <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="input-box w-100 passwordInput" pInputText placeholder="Password">      
+                </span>
               </div>
               <div class="text-danger" *ngIf="formSubmitted &&
                 (signupForm.get('password')?.hasError('required') || signupForm.get('password')?.value.length < 8)">
@@ -40,7 +44,11 @@
                 <span class="p-inputgroup-addon">
                   <ion-icon name="lock-closed-outline"></ion-icon>
                 </span>
-                <input type="password" formControlName="confirmPassword" class="input-box" pInputText placeholder="Confirm Password">         
+                <span class="p-input-icon-right">
+                  <i class="pi pi-eye" *ngIf="!showConfPassword" (click)="togglePassword('confirmPassword')"></i>
+                  <i class="pi pi-eye-slash dispPass" *ngIf="showConfPassword" (click)="togglePassword('confirmPassword')"></i>
+                  <input [type]="showConfPassword ? 'text' : 'password'" formControlName="confirmPassword" class="input-box w-100 passwordInput" pInputText placeholder="Confirm Password">      
+                </span>
               </div>
               <div class="text-danger" *ngIf="formSubmitted && 
                 (signupForm.get('confirmPassword')?.hasError('required') || signupForm.get('confirmPassword')?.value.length < 8)">
