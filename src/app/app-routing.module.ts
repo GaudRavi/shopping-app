@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
+    loadChildren: () => import('./application/dashboard/dashboard.module').then( m => m.DashboardPageModule)
   },
   {
     path: 'signup',
