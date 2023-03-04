@@ -1,0 +1,28 @@
+<ion-menu contentId="main-content" menu-id="sideMenu">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-menu-toggle auto-hide="false" menu="sideMenu">
+        <ion-item routerDirection='root' routerLink="/dashboard"
+          lines="none" detail="false" routerLinkActive="selected">
+          <ion-icon name="stats-chart-sharp" slot="start"></ion-icon>
+          <ion-label>Dashboard</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+  <ion-footer>
+    <ion-toolbar>
+      <ion-menu-toggle menu="sideMenu">
+        <ion-item lines="none" detail="false" id="openconnect">
+          <ion-icon name="log-out-outline"></ion-icon>
+          <ion-label (click)="authservice.LogOut()">Logout</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-toolbar>
+  </ion-footer>
+</ion-menu>
