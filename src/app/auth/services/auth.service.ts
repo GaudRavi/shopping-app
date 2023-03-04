@@ -24,7 +24,10 @@ export class AuthService {
       this.commonService.dismissSpinner();
       this.router.navigate(['/dashboard']);
     })
-    .catch(error => this.commonService.errorMessage(error.message));
+    .catch(error => {
+      this.LogOut();
+      this.commonService.errorMessage(error.message)
+    });
   }
 
   // Sign up with email/password
@@ -43,6 +46,13 @@ export class AuthService {
       this.commonService.successMessage('Password reset email sent, check your inbox.')
     })
     .catch(error => this.commonService.errorMessage(error.message));
+  }
+
+  LogOut() {
+    return this.fireauth.signOut().then(() => {
+      localStorage.clear();
+      this.router.navigate(['/login']);
+    });
   }
 
   //Auto login

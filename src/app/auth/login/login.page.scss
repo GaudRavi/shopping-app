@@ -51,8 +51,13 @@
     text-transform: none;
 }
 
+ion-button {
+    --background: #00a5a3;
+    height: 40px;
+}
+
 .create-account{
-    color: #F59E0B;
+    color: #00a5a3;
 }
 
 .passwordInput{

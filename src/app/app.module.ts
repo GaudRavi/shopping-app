@@ -10,9 +10,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { SideMenuComponent } from './application/side-menu/side-menu.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SideMenuComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

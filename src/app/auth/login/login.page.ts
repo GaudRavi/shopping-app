@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonService } from 'src/app/shared/services/common.service';
 import { UserModal } from '../interface/loginModel';
 import { AuthService } from '../services/auth.service';
 
@@ -9,7 +10,7 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
 
   loginForm!: FormGroup;
   forgotPasswordForm!: FormGroup;
@@ -20,7 +21,8 @@ export class LoginPage implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authservice: AuthService,
-    public router: Router
+    public router: Router,
+    private commonService: CommonService
   ) { }
 
   ngOnInit() {
@@ -38,7 +40,9 @@ export class LoginPage implements OnInit {
     this.formSubmitted = true;
     if(this.loginForm.valid){
       this.authservice.SignIn(details)
+      this.loginForm.reset();
       this.formSubmitted = false;
+      this.commonService.presentSpinner()
     }
   }
 
@@ -49,6 +53,7 @@ export class LoginPage implements OnInit {
   async submitForgotPassForm(value:any){
     this.passwordFormSubmitted = true;
     if(this.forgotPasswordForm.valid){
+      this.loginForm.reset();
       await this.authservice.ForgotPassword(value.email)
       this.passwordFormSubmitted = false;
       this.redirectToLoginPage();
@@ -56,10 +61,17 @@ export class LoginPage implements OnInit {
   }
 
   redirectToLoginPage(){
+    this.forgotPasswordForm.reset();
     this.forgotPassword = false;
   }
   
   redirectToForgotPass(){
+    this.loginForm.reset();
     this.forgotPassword = true;
+  }
+
+  ngOnDestroy(){
+    this.loginForm.reset();
+    this.forgotPasswordForm.reset();
   }
 }

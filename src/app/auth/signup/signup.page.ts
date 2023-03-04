@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { UserModal } from '../interface/loginModel';
@@ -9,7 +9,7 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
 })
-export class SignupPage implements OnInit {
+export class SignupPage implements OnInit, OnDestroy {
 
   signupForm!: FormGroup;
   formSubmitted: boolean = false;
@@ -45,6 +45,10 @@ export class SignupPage implements OnInit {
     this.showPassword = !this.showPassword;
     if(feild === 'confirmPassword')
     this.showConfPassword = !this.showConfPassword;
+  }
+
+  ngOnDestroy(){
+    this.signupForm.reset(); 
   }
 
 }
