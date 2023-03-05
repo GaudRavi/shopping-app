@@ -19,6 +19,7 @@ export class AppComponent {
     private platform: Platform
 
   ) {
+    this.watchNetworkConnection();
     SplashScreen.show({showDuration: 2000, autoHide: true}).then(() => {
       this.initialliseApp();
     })
@@ -41,5 +42,19 @@ export class AppComponent {
       this.commonService.dismissSpinner();
       this.router.navigate(['/login'])
     }
+  }
+  watchNetworkConnection(){
+    let hideFirstTime = 0;
+    this.commonService.connectionChanged.subscribe(status => {
+      hideFirstTime ++;
+      if(!status){
+        StatusBar.setBackgroundColor({color: '#00a5a3'});
+        this.commonService.errorMessage('Internet Connection Disconnected');
+      }
+      if(status && hideFirstTime > 1){
+        StatusBar.setBackgroundColor({color: '#ff0000'});
+        this.commonService.successMessage('Internet Connection Connected', 2000, true);
+      }
+    })
   }
 }

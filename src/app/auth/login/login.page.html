@@ -45,7 +45,10 @@
               Forgot Password?
             </div>
 
-            <ion-button expand="full" class="login-btn mb-5" shape="round" type="submit">Log in</ion-button>
+            <ion-button [disabled]="isLoginStart" expand="full" class="login-btn mb-5" shape="round" type="submit">
+              {{isLoginStart ? 'Verifying user' : 'Log in'}}&nbsp;
+              <ion-spinner *ngIf="isLoginStart" name="dots"></ion-spinner>
+            </ion-button>
           </form>
           <div class="text-center mb-1">Don't have an account?</div>
           <div class="text-center fw-bold create-account" routerLink="/signup">Create account</div>
@@ -72,7 +75,10 @@
             </div>
             </div>
 
-            <ion-button expand="full" class="login-btn mb-5" shape="round" type="submit">Reset password</ion-button>
+            <ion-button [disabled]="isLoginStart" expand="full" class="login-btn mb-5" shape="round" type="submit">
+              {{isLoginStart ? 'Sending email' : 'Reset password'}}&nbsp;
+              <ion-spinner *ngIf="isLoginStart" name="dots"></ion-spinner>
+            </ion-button>
           </form>
           <div class="text-center fw-bold create-account" (click)="redirectToLoginPage()">Back to login page</div>
         </div>

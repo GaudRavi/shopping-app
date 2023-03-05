@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { UserModal } from '../interface/loginModel';
 
@@ -8,6 +9,7 @@ import { UserModal } from '../interface/loginModel';
   providedIn: 'root'
 })
 export class AuthService {
+  isUserLogedIn = new BehaviorSubject(false);
 
   constructor(
     private fireauth: AngularFireAuth,
@@ -17,39 +19,55 @@ export class AuthService {
 
   // Sign in with email/password
   SignIn(details: UserModal) {
-    return this.fireauth.signInWithEmailAndPassword(details.email, details.password)
-    .then((result) => {
-      result.user?.getIdTokenResult().then(res =>  localStorage.setItem('idToken',res.token))
-      localStorage.setItem('creds', JSON.stringify(details));
-      this.commonService.dismissSpinner();
-      this.router.navigate(['/dashboard']);
-    })
-    .catch(error => {
-      this.LogOut();
-      this.commonService.errorMessage(error.message)
+    return new Promise((resolve, reject) => {
+      this.fireauth.signInWithEmailAndPassword(details.email, details.password)
+      .then(result => {
+        this.isUserLogedIn.next(true);
+        resolve(true);
+        result.user?.getIdTokenResult().then(res =>  localStorage.setItem('idToken',res.token));
+        localStorage.setItem('creds', JSON.stringify(details));
+        this.commonService.dismissSpinner();
+        this.router.navigate(['/dashboard']);
+      }, (error) => {
+        reject(error);
+        this.LogOut();
+        this.commonService.errorMessage(error.message);
+      })
     });
   }
 
   // Sign up with email/password
   SignUp(email: string, password: string) {
-    return this.fireauth.createUserWithEmailAndPassword(email, password)
-    .then((result) => {
-      this.router.navigate(['/login']);
+    return new Promise((resolve, reject) => {
+      this.fireauth.createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        this.commonService.successMessage('Account created please login');
+        resolve(true);
+        this.router.navigate(['/login']);
+      }, (error) => {
+        reject(error);
+        this.commonService.errorMessage(error.message);
+      });
     })
-    .catch(error => this.commonService.errorMessage(error.message));
   }
 
   // Reset Forggot password
   ForgotPassword(passwordResetEmail: string) {
-    return this.fireauth.sendPasswordResetEmail(passwordResetEmail)
-    .then(() => {
-      this.commonService.successMessage('Password reset email sent, check your inbox.')
+    return new Promise((resolve, reject) => {
+      this.fireauth.sendPasswordResetEmail(passwordResetEmail)
+      .then(() => {
+        resolve(true);
+        this.commonService.successMessage('Password reset email sent, check your inbox.')
+      }, (error) => {
+        reject(error);
+        this.commonService.errorMessage(error.message);
+      })
     })
-    .catch(error => this.commonService.errorMessage(error.message));
   }
 
   LogOut() {
     return this.fireauth.signOut().then(() => {
+      this.isUserLogedIn.next(false);
       localStorage.clear();
       this.router.navigate(['/login']);
     });
@@ -58,7 +76,8 @@ export class AuthService {
   //Auto login
   public initAutoLogin() {
     const details: UserModal = JSON.parse(localStorage.getItem('creds')!);
-    if (details) this.SignIn(details);
+    if (details && this.commonService.isOnline) this.SignIn(details);
+    if (details && !this.commonService.isOnline) this.router.navigate(['/dashboard']);
     else this.router.navigate(['/login']);
   }
 }

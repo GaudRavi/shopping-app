@@ -15,6 +15,7 @@ export class LoginPage implements OnInit, OnDestroy {
   loginForm!: FormGroup;
   forgotPasswordForm!: FormGroup;
   formSubmitted: boolean = false;
+  isLoginStart: boolean = false;
   passwordFormSubmitted: boolean = false;
   showPassword: boolean = false;
   forgotPassword: boolean = false;
@@ -36,13 +37,19 @@ export class LoginPage implements OnInit, OnDestroy {
     });
   }
 
-  submitLoginForm(details: UserModal){
+  async submitLoginForm(details: UserModal){
     this.formSubmitted = true;
     if(this.loginForm.valid){
-      this.authservice.SignIn(details)
-      this.loginForm.reset();
-      this.formSubmitted = false;
-      this.commonService.presentSpinner()
+      this.isLoginStart = true;
+      await this.authservice.SignIn(details).then(res => {
+        if(res){
+          this.isLoginStart = false;
+          this.loginForm.reset();
+          this.formSubmitted = false;
+        }
+      }, (error) => {
+        this.isLoginStart = false;
+      })
     }
   }
 
@@ -53,8 +60,10 @@ export class LoginPage implements OnInit, OnDestroy {
   async submitForgotPassForm(value:any){
     this.passwordFormSubmitted = true;
     if(this.forgotPasswordForm.valid){
+      this.isLoginStart = true;
       this.loginForm.reset();
       await this.authservice.ForgotPassword(value.email)
+      .then(() => this.isLoginStart = false, () => this.isLoginStart = false)
       this.passwordFormSubmitted = false;
       this.redirectToLoginPage();
     }

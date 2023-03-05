@@ -7,9 +7,11 @@ import { AuthService } from 'src/app/auth/services/auth.service';
   styleUrls: ['./side-menu.component.scss'],
 })
 export class SideMenuComponent implements OnInit {
-
+  islogin: boolean = false;
   constructor(public authservice: AuthService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authservice.isUserLogedIn.subscribe(res => this.islogin = res);
+  }
 
 }

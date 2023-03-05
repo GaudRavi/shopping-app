@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
+declare const window: any;
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
-
+  private internalConnectionChanged = new BehaviorSubject<boolean>(this.isOnline);
   isLoading:boolean = false
   constructor(
     private toastCtrl: ToastController,
     private loaderController: LoadingController,
-  ) { }
+  ) {
+    window.addEventListener('online', () => this.updateOnlineStatus());
+    window.addEventListener('offline', () => this.updateOnlineStatus());
+  }
 
   async successMessage(msg: string, duration?: number, isDark?: boolean) {
     const toast = await this.toastCtrl.create({
@@ -44,7 +49,7 @@ export class CommonService {
           mode: 'md'
         }).then((res) => {
           res.present();
-          setTimeout(() => this.dismissSpinner(), 10000);
+          // setTimeout(() => this.dismissSpinner(), 10000);
           resolve('')
         });
       }
@@ -56,5 +61,17 @@ export class CommonService {
       this.loaderController.dismiss().then(res => this.isLoading = false)
       .catch((err) => console.log('Error occurred : ', err));
     }
+  }
+
+  get isOnline() {
+    return !!window.navigator.onLine;
+  }
+
+  get connectionChanged() {
+    return this.internalConnectionChanged.asObservable();
+  }
+
+  private updateOnlineStatus() {
+    this.internalConnectionChanged.next(window.navigator.onLine);
   }
 }

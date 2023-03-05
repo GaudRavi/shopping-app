@@ -56,7 +56,10 @@
               </div>
             </div>
 
-            <ion-button expand="full" class="login-btn mb-5" shape="round" type="submit">Sign up</ion-button>
+            <ion-button [disabled]="isSignUpStart" expand="full" class="login-btn mb-5" shape="round" type="submit">
+              {{isSignUpStart ? 'Creating account' : 'Sign up'}}&nbsp;
+              <ion-spinner *ngIf="isSignUpStart" name="dots"></ion-spinner>
+            </ion-button>
           </form>
           <div class="text-center mb-1 create-account fw-bold " routerLink="/login">Already have account</div>
         </div>

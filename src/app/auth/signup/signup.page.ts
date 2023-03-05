@@ -13,6 +13,7 @@ export class SignupPage implements OnInit, OnDestroy {
 
   signupForm!: FormGroup;
   formSubmitted: boolean = false;
+  isSignUpStart : boolean = false;
   showPassword: boolean = false;
   showConfPassword: boolean = false;
   constructor(
@@ -35,8 +36,12 @@ export class SignupPage implements OnInit, OnDestroy {
       this.commonService.errorMessage('Password must be same !');
     }
     if(this.signupForm.valid && cred.password === cred.confirmPassword){
-      this.authservice.SignUp(cred.email, cred.password);
-      this.formSubmitted = false;
+      this.isSignUpStart = true;
+      this.authservice.SignUp(cred.email, cred.password)
+      .then((res) => {
+        if(res) this.isSignUpStart = false;
+        this.formSubmitted = false;
+      }, () => this.isSignUpStart = false);
     }
   }
 
