@@ -1,0 +1,70 @@
+.main-container{
+    height: 190px;
+    background-color: white;
+    border-radius: 5px;
+}
+.header-content{
+    .left-part{
+        .icon-div{
+            width: 32px;
+            max-width: 32px;
+            border: 1px solid #daf5f5;
+            height: 35px;
+            border-radius: 8px;
+            background: #daf5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00807d;
+        }
+        .title-div{
+            font-size: 20px;
+            letter-spacing: .43px;
+            line-height: 14px;
+            color: #0d2222;
+        }
+    }
+    
+    .right-part{
+        color: #8e9f9f;
+    }
+}
+
+.body-content{
+    .left-part{
+        .value{
+            line-height: 20px;
+            color: #0d2222;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .growth{
+            vertical-align: super;
+            font-size: 14px;
+        }
+    }
+    .right-part{
+        font-size: 14px;
+        color: #5b6565;
+        line-height: 22px;
+    }
+}
+
+.progress{
+    height: 12px;
+    .progress-bar {
+        background-color: #00a5a3;
+    }
+}
+
+.footer-content{
+    .sub-heading {
+        font-size: 14px;
+        color: #5b6565;
+        line-height: 22px;
+    }
+    .targetInput{
+        border-radius: 5px;
+        border: 1px solid #5b6565;
+    }
+}

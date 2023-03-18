@@ -1,5 +1,11 @@
 
-ion-toolbar {
-    --background: #00a5a3;
-    --color: white;
+.dashboard-header{
+    ion-toolbar {
+        --background: #00a5a3;
+        --color: white;
+    }
+}
+
+.dashboard-content {
+    --background: #f3f3f3;
 }

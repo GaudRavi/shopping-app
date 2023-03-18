@@ -53,11 +53,11 @@ export class AppComponent {
     this.commonService.connectionChanged.subscribe(status => {
       hideFirstTime ++;
       if(!status){
-        StatusBar.setBackgroundColor({color: '#00a5a3'});
+        StatusBar.setBackgroundColor({color: '#ff726f'});
         this.commonService.errorMessage('Internet Connection Disconnected');
       }
       if(status && hideFirstTime > 1){
-        StatusBar.setBackgroundColor({color: '#ff0000'});
+        StatusBar.setBackgroundColor({color: '#00a5a3'});
         this.commonService.successMessage('Internet Connection Connected', 2000, true);
       }
     })
