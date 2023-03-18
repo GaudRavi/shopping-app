@@ -5,6 +5,7 @@ import { CommonService } from './shared/services/common.service';
 import { StatusBar } from '@capacitor/status-bar';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { NotificationService } from './shared/services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ export class AppComponent {
     private authservice: AuthService,
     public router: Router,
     private commonService: CommonService,
-    private platform: Platform
+    private platform: Platform,
+    private notificationService: NotificationService
 
   ) {
     this.watchNetworkConnection();
@@ -29,6 +31,9 @@ export class AppComponent {
     this.platform.ready().then(() => {
       StatusBar.setBackgroundColor({color: '#00a5a3'});
       this.checkIsTokenExpired();
+      if (!this.platform.is("desktop")) {
+        this.notificationService.initPushNotification();
+      }
     })
   }
 
