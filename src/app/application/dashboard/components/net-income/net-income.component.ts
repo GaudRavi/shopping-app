@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { dashboardSales } from 'src/app/shared/models/dashboardSales';
 
 @Component({
   selector: 'app-net-income',
@@ -6,13 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./net-income.component.scss'],
 })
 export class NetIncomeComponent implements OnInit {
-  isLoading: boolean = true;
+  @Input() isLoading: boolean = true;
+  @Input() dashboardSales!: dashboardSales[];
+  @Input() netIncome!: number;
+  @Input() lastCycleNetIncome!: number;
+
   constructor() { }
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.isLoading = false
-    }, 9000);
+  ngOnInit() { }
+  
+  getSellGrowth(){
+    if (this.netIncome === this.lastCycleNetIncome) return 0;
+    if (this.netIncome === 0) return 100;
+    return Math.abs((1 - (this.netIncome / this.lastCycleNetIncome)) * 100);
   }
 
 }

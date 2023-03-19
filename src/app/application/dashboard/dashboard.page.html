@@ -10,13 +10,19 @@
 <ion-content class="dashboard-content">
   <swiper #swiper [config]="config" class="m-2" [pagination]="{ clickable: true }">
     <ng-template swiperSlide>
-      <app-sales-target></app-sales-target>
+      <app-sales-target [isLoading]="isLoading" [dashboardSales]="dashboardSales"
+       (editTargetValue)="editTargetValue()" [isEditTarget]="isEditTarget"
+       [salesTargetControl]="salesTargetControl">
+      </app-sales-target>
     </ng-template>
     <ng-template swiperSlide>
-      <app-sales-transactions></app-sales-transactions>
+      <app-sales-transactions [isLoading]="isLoading" [dashboardSales]="dashboardSales">
+      </app-sales-transactions>
     </ng-template>
     <ng-template swiperSlide>
-      <app-net-income></app-net-income>
+      <app-net-income [isLoading]="isLoading" [dashboardSales]="dashboardSales"
+        [netIncome]="netIncome" [lastCycleNetIncome]="lastCycleNetIncome">
+      </app-net-income>
     </ng-template>
   </swiper>
 </ion-content>
