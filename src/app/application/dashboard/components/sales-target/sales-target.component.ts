@@ -9,6 +9,7 @@ import { dashboardSales } from 'src/app/shared/models/dashboardSales';
 })
 export class SalesTargetComponent implements OnInit {
   @Input() isLoading: boolean = true;
+  @Input() isOnline: boolean = false;
   @Input() dashboardSales!: dashboardSales[];
   @Input() isEditTarget: boolean = false;
   @Input() salesTargetControl!: FormControl;

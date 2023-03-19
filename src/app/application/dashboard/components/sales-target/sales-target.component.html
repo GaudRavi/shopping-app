@@ -48,7 +48,7 @@
       <div class="d-flex align-items-center lastCycleValue" (click)="toggleEdit()">
         <div><i class="fa-solid fa-indian-rupee-sign"></i></div>
         <div class="mx-1 fw-bold">{{dashboardSales[0].salesTarget | number: '1.2-2'}}</div>
-        <i class="fa-regular fa-pen"></i>
+        <i class="fa-regular fa-pen" *ngIf="isOnline"></i>
       </div>
     </div>
 

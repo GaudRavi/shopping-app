@@ -77,7 +77,7 @@ export class AuthService {
   public initAutoLogin() {
     const details: UserModal = JSON.parse(localStorage.getItem('creds')!);
     if (details && this.commonService.isOnline) this.SignIn(details);
-    if (details && !this.commonService.isOnline) this.router.navigate(['/dashboard']);
+    else if (details && !this.commonService.isOnline) this.router.navigate(['/dashboard']);
     else this.router.navigate(['/login']);
   }
 }
