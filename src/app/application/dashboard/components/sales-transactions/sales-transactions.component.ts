@@ -8,15 +8,15 @@ import { dashboardSales } from 'src/app/shared/models/dashboardSales';
 })
 export class SalesTransactionsComponent implements OnInit {
   @Input() isLoading: boolean = true;
-  @Input() dashboardSales!: dashboardSales[];
+  @Input() dashboardSales!: dashboardSales;
 
   constructor() { }
 
   ngOnInit() { }
 
   getSellGrowth(){
-    let salesCount = this.dashboardSales[0].salesCount;
-    let lastCycleSalesCount = this.dashboardSales[0].lastCycleSalesCount;
+    let salesCount = this.dashboardSales.salesCount;
+    let lastCycleSalesCount = this.dashboardSales.lastCycleSalesCount;
     if (salesCount === lastCycleSalesCount) return 0;
     if (salesCount === 0) return 100;
     return Math.abs((1 - (salesCount / lastCycleSalesCount)) * 100);

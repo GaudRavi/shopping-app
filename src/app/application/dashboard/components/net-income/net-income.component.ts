@@ -8,7 +8,7 @@ import { dashboardSales } from 'src/app/shared/models/dashboardSales';
 })
 export class NetIncomeComponent implements OnInit {
   @Input() isLoading: boolean = true;
-  @Input() dashboardSales!: dashboardSales[];
+  @Input() dashboardSales!: dashboardSales;
   @Input() netIncome!: number;
   @Input() lastCycleNetIncome!: number;
 

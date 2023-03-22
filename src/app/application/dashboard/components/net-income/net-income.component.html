@@ -13,7 +13,7 @@
     <div class="d-flex text-left left-part">
       <div class="value d-flex align-items-center">
         <div><i class="fa-solid fa-indian-rupee-sign"></i></div>
-        <div class="mx-2">{{dashboardSales[0].profit | number: '1.2-2'}}</div>
+        <div class="mx-2">{{dashboardSales.profit | number: '1.2-2'}}</div>
       </div>
 
       <div class="text-success growth" *ngIf="netIncome >= lastCycleNetIncome">
@@ -33,7 +33,7 @@
     <div class="d-flex align-items-center lastCycleValue">
       <div><i class="fa-solid fa-indian-rupee-sign"></i></div>
       <div class="mx-1 fw-bold">
-        {{dashboardSales[0].lastCycleProfit - dashboardSales[0].lastCycleExpenses | number: '1.2-2'}}
+        {{dashboardSales.lastCycleProfit - dashboardSales.lastCycleExpenses | number: '1.2-2'}}
       </div>
     </div>
   </div>

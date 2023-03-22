@@ -13,13 +13,34 @@
           <ion-label>Dashboard</ion-label>
         </ion-item>
       </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="false" menu="sideMenu">
+        <ion-item lines="none" detail="false">
+          <ion-icon name="cart" slot="start"></ion-icon>
+          <ion-label>Sell</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="false" menu="sideMenu">
+        <ion-item lines="none" detail="false">
+          <ion-icon name="newspaper" slot="start"></ion-icon>
+          <ion-label>Invoices</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="false" menu="sideMenu">
+        <ion-item lines="none" detail="false">
+          <ion-icon name="settings-sharp" slot="start"></ion-icon>
+          <ion-label>Setting</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
     </ion-list>
   </ion-content>
   <ion-footer>
     <ion-toolbar>
       <ion-menu-toggle menu="sideMenu">
         <ion-item lines="none" detail="false" id="openconnect">
-          <ion-icon name="log-out-outline"></ion-icon>
+          <ion-icon name="log-out" slot="start"></ion-icon>
           <ion-label (click)="authservice.LogOut()">Logout</ion-label>
         </ion-item>
       </ion-menu-toggle>

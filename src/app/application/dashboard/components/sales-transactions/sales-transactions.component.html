@@ -12,15 +12,15 @@
   <div class="mt-3 body-content d-flex justify-content-between align-items-center">
     <div class="d-flex text-left left-part">
       <div class="value d-flex align-items-center">
-        <div class="mx-2">{{dashboardSales[0].salesCount | number:'1.0-0'}}</div>
+        <div class="mx-2">{{dashboardSales.salesCount | number:'1.0-0'}}</div>
       </div>
 
-      <div class="text-success growth" *ngIf="dashboardSales[0].salesCount >= dashboardSales[0].lastCycleSalesCount">
+      <div class="text-success growth" *ngIf="dashboardSales.salesCount >= dashboardSales.lastCycleSalesCount">
         <i class="fa-regular fa-arrow-up-right"></i>
         <span class="mx-1">{{getSellGrowth() | number: '1.0-0'}}%</span>
       </div>
 
-      <div class="text-success growth" *ngIf="dashboardSales[0].salesCount < dashboardSales[0].lastCycleSalesCount">
+      <div class="text-success growth" *ngIf="dashboardSales.salesCount < dashboardSales.lastCycleSalesCount">
         <i class="fa-regular fa-arrow-down-left"></i>
         <span class="mx-1">{{getSellGrowth() | number: '1.0-0'}}%</span>
       </div>
@@ -30,7 +30,7 @@
   <div class="footer-content">
     <div class="sub-heading">Last month</div>
     <div class="d-flex align-items-center lastCycleValue">
-      <div class="mx-1 fw-bold">{{dashboardSales[0].lastCycleSalesCount | number:'1.0-0'}}</div>
+      <div class="mx-1 fw-bold">{{dashboardSales.lastCycleSalesCount | number:'1.0-0'}}</div>
     </div>
   </div>
 </div>

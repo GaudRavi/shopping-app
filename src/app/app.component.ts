@@ -44,12 +44,12 @@ export class AppComponent {
       SplashScreen.hide();
     }
     else if (idToken && !this.commonService.isOnline){
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/dashboard'], { replaceUrl: true });
       SplashScreen.hide();
     }
     else{
       this.commonService.dismissSpinner();
-      this.router.navigate(['/login'])
+      this.router.navigate(['/login'], { replaceUrl: true })
     }
   }
   watchNetworkConnection(){

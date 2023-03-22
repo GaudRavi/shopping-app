@@ -13,15 +13,15 @@
     <div class="d-flex text-left left-part">
       <div class="value d-flex align-items-center">
         <div><i class="fa-solid fa-indian-rupee-sign"></i></div>
-        <div class="mx-2">{{dashboardSales[0].totalSales | number:'1.2-2'}}</div>
+        <div class="mx-2">{{dashboardSales.totalSales | number:'1.2-2'}}</div>
       </div>
 
-      <div class="text-success growth" *ngIf="dashboardSales[0].totalSales >= dashboardSales[0].lastCycleSales">
+      <div class="text-success growth" *ngIf="dashboardSales.totalSales >= dashboardSales.lastCycleSales">
         <i class="fa-regular fa-arrow-up-right"></i>
         <span class="mx-1">{{getSellGrowth() | number: '1.0-0'}}%</span>
       </div>
 
-      <div class="text-danger growth" *ngIf="dashboardSales[0].totalSales < dashboardSales[0].lastCycleSales">
+      <div class="text-danger growth" *ngIf="dashboardSales.totalSales < dashboardSales.lastCycleSales">
         <i class="fa-regular fa-arrow-down-left"></i>
         <span class="mx-1">{{getSellGrowth() | number: '1.0-0'}}%</span>
       </div>
@@ -39,7 +39,7 @@
       <div class="sub-heading">Last month</div>
       <div class="d-flex align-items-center lastCycleValue">
         <div><i class="fa-solid fa-indian-rupee-sign"></i></div>
-        <div class="mx-1 fw-bold">{{dashboardSales[0].lastCycleSales | number: '1.2-2'}}</div>
+        <div class="mx-1 fw-bold">{{dashboardSales.lastCycleSales | number: '1.2-2'}}</div>
       </div>
     </div>
 
@@ -47,7 +47,7 @@
       <div class="sub-heading">Target</div>
       <div class="d-flex align-items-center lastCycleValue" (click)="toggleEdit()">
         <div><i class="fa-solid fa-indian-rupee-sign"></i></div>
-        <div class="mx-1 fw-bold">{{dashboardSales[0].salesTarget | number: '1.2-2'}}</div>
+        <div class="mx-1 fw-bold">{{dashboardSales.salesTarget | number: '1.2-2'}}</div>
         <i class="fa-regular fa-pen"></i>
       </div>
     </div>
