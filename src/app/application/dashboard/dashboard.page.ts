@@ -2,11 +2,10 @@ import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@ang
 import { SwiperComponent } from 'swiper/angular';
 import { SwiperOptions } from 'swiper';
 // import SwiperCore, { Pagination } from 'swiper/core';
-import { FirestorDBService } from 'src/app/shared/services/firestor-db.service';
-import { map } from 'rxjs';
-import { dashboardSales } from 'src/app/shared/models/dashboardSales';
+import { FirestorDBService } from '../../shared/services/firestore-db.service';
+import { DashboardSales } from './models/DashboardSales';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { CommonService } from 'src/app/shared/services/common.service';
+import { CommonService } from '../../shared/services/common.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +15,7 @@ import { CommonService } from 'src/app/shared/services/common.service';
 })
 export class DashboardPage implements OnInit, OnDestroy {
   @ViewChild('swiper') swiper!: SwiperComponent;
-  dashboardSales!: dashboardSales;
+  dashboardSales!: DashboardSales;
   salesTargetControl: FormControl;
   netIncome!: number;
   lastCycleNetIncome!: number;
@@ -49,7 +48,7 @@ export class DashboardPage implements OnInit, OnDestroy {
   getDashboardSales() {
     if(this.commonService.isOnline){
       this.subscription = this.firebaseDB.getDashboardData().subscribe((dashboardData) => {
-        this.dashboardSales = dashboardData as dashboardSales;
+        this.dashboardSales = dashboardData as DashboardSales;
         localStorage.setItem('dashboardSales', JSON.stringify(this.dashboardSales));
         this.netIncome = this.dashboardSales.profit - this.dashboardSales.expenses;
         this.lastCycleNetIncome = this.dashboardSales.lastCycleProfit - this.dashboardSales.lastCycleExpenses;

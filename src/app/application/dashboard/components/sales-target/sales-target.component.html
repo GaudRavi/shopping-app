@@ -58,7 +58,7 @@
         <div><i class="fa-solid fa-indian-rupee-sign"></i></div>
         <div class="w-100" style="margin: 0 5px;">
           <input type="text" placeholder="Target" class="w-100 targetInput"
-            [formControl]="salesTargetControl"
+            [formControl]="salesTargetControl" autofocus
             (keyup.enter)="editTarget()" (blur)="editTarget()" inputmode="numeric"
             oninput="event.target.value = event.target.value.replace(/[^0-9.?]*/g,'');"
           >  

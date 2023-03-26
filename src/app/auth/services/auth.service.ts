@@ -3,9 +3,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { CommonService } from 'src/app/shared/services/common.service';
-import { FirestorDBService } from 'src/app/shared/services/firestor-db.service';
+import { FirestorDBService } from 'src/app/shared/services/firestore-db.service';
 import { UserModal } from '../interface/loginModel';
-import { dashboardSales } from 'src/app/shared/models/dashboardSales';
+import { DashboardSales } from '../../application/dashboard/models/DashboardSales';
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +54,7 @@ export class AuthService {
       this.fireauth.createUserWithEmailAndPassword(email, password)
       .then(async (result: any) => {
         if(result.additionalUserInfo.isNewUser){
-          let dashSales: dashboardSales = {
+          let dashSales: DashboardSales = {
             id: result.user?.uid,
             totalSales: 0,
             salesCount: 0,

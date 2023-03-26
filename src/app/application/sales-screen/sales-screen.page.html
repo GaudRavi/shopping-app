@@ -1,0 +1,27 @@
+<ion-header class="sells-header">
+  <ion-toolbar>
+    <ion-title>Sell</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="sideMenu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="sells-content">
+    <div class="pt-3 categories-buttons d-flex" *ngIf="!isLoading">
+      <div *ngFor="let category of categories">
+        <div class="category-btn">{{category.name}}</div>
+      </div>
+    </div> 
+
+  <div *ngIf="isLoading">
+    <div class="pt-3 categories-buttons d-flex">
+      <div><ion-skeleton-text [animated]="true" style="width: 130px; height: 30px;"></ion-skeleton-text></div>
+      <div><ion-skeleton-text [animated]="true" style="width: 130px; height: 30px;"></ion-skeleton-text></div>
+      <div><ion-skeleton-text [animated]="true" style="width: 130px; height: 30px;"></ion-skeleton-text></div>
+      <div><ion-skeleton-text [animated]="true" style="width: 130px; height: 30px;"></ion-skeleton-text></div>
+      <div><ion-skeleton-text [animated]="true" style="width: 130px; height: 30px;"></ion-skeleton-text></div>
+    </div>
+  </div>
+
+</ion-content>

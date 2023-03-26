@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { dashboardSales } from 'src/app/shared/models/dashboardSales';
+import { DashboardSales } from '../../models/DashboardSales';
 
 @Component({
   selector: 'app-sales-transactions',
@@ -8,7 +8,7 @@ import { dashboardSales } from 'src/app/shared/models/dashboardSales';
 })
 export class SalesTransactionsComponent implements OnInit {
   @Input() isLoading: boolean = true;
-  @Input() dashboardSales!: dashboardSales;
+  @Input() dashboardSales!: DashboardSales;
 
   constructor() { }
 

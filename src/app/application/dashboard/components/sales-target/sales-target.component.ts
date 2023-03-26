@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { dashboardSales } from 'src/app/shared/models/dashboardSales';
+import { DashboardSales } from '../../models/DashboardSales';
 
 @Component({
   selector: 'app-sales-target',
@@ -9,7 +9,7 @@ import { dashboardSales } from 'src/app/shared/models/dashboardSales';
 })
 export class SalesTargetComponent implements OnInit {
   @Input() isLoading: boolean = true;
-  @Input() dashboardSales!: dashboardSales;
+  @Input() dashboardSales!: DashboardSales;
   @Input() isEditTarget: boolean = false;
   @Input() salesTargetControl!: FormControl;
   @Output() editTargetValue = new EventEmitter<any>();
