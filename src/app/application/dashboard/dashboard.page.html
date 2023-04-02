@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="dashboard-content">
-  <swiper #swiper [config]="config" class="m-2" [pagination]="{ clickable: true }">
+  <swiper #swiper [config]="config" class="m-2">
     <ng-template swiperSlide>
       <app-sales-target [isLoading]="isLoading" [dashboardSales]="dashboardSales"
        (editTargetValue)="editTargetValue()" [isEditTarget]="isEditTarget"

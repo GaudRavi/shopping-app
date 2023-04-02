@@ -1,0 +1,12 @@
+<div class="main-card"
+  style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.3)), url('{{product?.Files[0]}}') no-repeat calc(50%) 0px / contain">
+  <div class="price-tag">
+    <span class="mx-1"><i class="fa-solid fa-indian-rupee-sign"></i></span>
+    <span>{{product?.ProductVariants[0]?.price ?? 0| number:'1.2-2'}}</span>
+  </div>
+  <div class="discount-tag">
+    <span class="mx-1"><i class="fa-solid fa-indian-rupee-sign"></i></span>
+    <span>{{product?.ProductVariants[0]?.price ?? 0| number:'1.2-2'}}</span>
+  </div>
+  <div class="centered">{{product?.name}}</div>
+</div>

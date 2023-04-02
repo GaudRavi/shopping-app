@@ -6,6 +6,7 @@ import { SalesScreenPageRoutingModule } from './sales-screen-routing.module';
 import { SalesScreenPage } from './sales-screen.page';
 import { NgxsModule } from '@ngxs/store';
 import { SalesScreenState } from './states/sales-screen.state';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,9 @@ import { SalesScreenState } from './states/sales-screen.state';
     SalesScreenPageRoutingModule,
     NgxsModule.forFeature([SalesScreenState])
   ],
-  declarations: [SalesScreenPage]
+  declarations: [
+    SalesScreenPage,
+    ProductCardComponent
+  ]
 })
 export class SalesScreenPageModule {}

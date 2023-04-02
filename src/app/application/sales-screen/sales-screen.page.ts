@@ -3,8 +3,9 @@ import { Store } from '@ngxs/store';
 import { CommonService } from '../../shared/services/common.service';
 import { FirestorDBService } from '../../shared/services/firestore-db.service';
 import { SetCategories } from './actions/sales-screen.action';
-import { Categories } from './model/categories';
+import { Category } from './model/Category';
 import { SalesScreenState } from './states/sales-screen.state';
+import { Product } from './model/Product';
 
 @Component({
   selector: 'app-sales-screen',
@@ -13,9 +14,11 @@ import { SalesScreenState } from './states/sales-screen.state';
 })
 export class SalesScreenPage implements OnInit, OnDestroy {
 
-  subscription: any;
-  isLoading: boolean = true;
-  categories!: Categories[];
+  isCategoryLoading: boolean = true;
+  isProductLoading: boolean = true;
+  categories!: Category[];
+  products!: Product[];
+  selectedCategory!: string;
 
   constructor(
     private commonService: CommonService,
@@ -24,25 +27,36 @@ export class SalesScreenPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.getDashboardSales();
+    this.getCategoryData();
   }
 
-  getDashboardSales() {
+  async getCategoryWiseProduct(category: any){
+    if(this.selectedCategory !== category.name){
+      this.isProductLoading = true;
+      this.selectedCategory = category.name;
+      this.products =  await this.firebaseDB.getCategoryWiseProduct(category.categoryId)
+      this.isProductLoading = false;
+    }
+  }
+
+  getCategoryData() {
     if(this.commonService.isOnline){
-      this.subscription = this.firebaseDB.getCategoryData().subscribe((data: any) => {
+      this.firebaseDB.getCategoryData().then((data: any) => {
         this.categories = data?.categories;
         this.store.dispatch(new SetCategories({categories: data?.categories, id: data?.id})).subscribe();
-        this.isLoading = false;
+        this.isCategoryLoading = false;
+        this.getCategoryWiseProduct(this.categories[0]);
       })
     }else{
       this.store.select(SalesScreenState.getCategories).subscribe((data:any) => {
         this.categories = data?.categories;
-        this.isLoading = false;
+        this.isCategoryLoading = false;
+        this.getCategoryWiseProduct(this.categories[0]);
       });
     }
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 }

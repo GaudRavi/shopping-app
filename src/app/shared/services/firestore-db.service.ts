@@ -13,7 +13,8 @@ import {
 import { FirebaseApp, initializeApp } from 'firebase/app';
 import { environment } from '../../../environments/environment.prod';
 import { Observable } from 'rxjs';
-import { Categories } from '../../application/sales-screen/model/categories';
+import { Category } from '../../application/sales-screen/model/Category';
+import { Product } from '../../application/sales-screen/model/Product';
 
 @Injectable({
   providedIn: 'root'
@@ -64,22 +65,59 @@ export class FirestorDBService {
   }
 
   // sell screen data
-  getCategoryData(): Observable<Categories[]>{
-    return new Observable((observer) => {
-    const uid = JSON.parse(localStorage.getItem('user')!)?.uid;
-    const categoryCollection = collection(this.getFirestoreDB(), 'categories');
-    const queryRef = query(categoryCollection, where('id', '==', uid), limit(1));
-    let categoryData: Categories[];
-    onSnapshot(
-      queryRef,
-      async (snapshot) => {
-        snapshot.docs.forEach((documnet) => categoryData = {...documnet.data()} as any)
-        observer.next(categoryData)
-      },
-      (error) => {
-        console.log(error);
-      }
-    )
+  getCategoryData(): Promise<any>{
+    return new Promise((resolve, reject) => {
+      const uid = JSON.parse(localStorage.getItem('user')!)?.uid;
+      const categoryCollection = collection(this.getFirestoreDB(), 'categories');
+      const queryRef = query(categoryCollection, where('id', '==', uid), limit(1));
+      let categoryData: Category[];
+      onSnapshot(
+        queryRef,
+        async (snapshot) => {
+          snapshot.docs.forEach((documnet) => categoryData = {...documnet.data()} as any)
+          resolve(categoryData);
+        },
+        (error) => reject(error)
+      )
+    })
+  }
+
+  getProductData(): Promise<Product[]>{
+    return new Promise((resolve, reject) => {
+      const uid = JSON.parse(localStorage.getItem('user')!)?.uid;
+      const productCollection = collection(this.getFirestoreDB(), 'products');
+      const queryRef = query(productCollection, where('userId', '==', uid));
+      let product: Product[] = [];
+      onSnapshot(
+        queryRef,
+        async (snapshot) => {
+          snapshot.docs.forEach((documnet) => product.push({...documnet.data()} as any))
+          resolve(product)
+        },
+        (error) => reject(error)
+      )
+    })
+  }
+
+  getCategoryWiseProduct(categoryId: number): Promise<Product[]>{
+    return new Promise((resolve, reject) => {
+      const uid = JSON.parse(localStorage.getItem('user')!)?.uid;
+      const productCollection = collection(this.getFirestoreDB(), 'products');
+      const queryRef = query(
+        productCollection,
+        where('userId', '==', uid),
+        where('categoryId', '==', categoryId)
+      );
+
+      let product: Product[] = [];
+      onSnapshot(
+        queryRef,
+        async (snapshot) => {
+          snapshot.docs.forEach((documnet) => product.push({...documnet.data()} as any))
+          resolve(product)
+        },
+        (error) => reject(error)
+      )
     })
   }
 }

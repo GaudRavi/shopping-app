@@ -21,7 +21,7 @@ export class AuthService {
   ) { }
 
   // Sign in with email/password
-  SignIn(details: UserModal) {
+  SignIn(details: UserModal, isAutoLogin = true) {
     return new Promise((resolve, reject) => {
       this.fireauth.signInWithEmailAndPassword(details.email, details.password)
       .then(async (result) => {
@@ -38,7 +38,8 @@ export class AuthService {
           localStorage.setItem('idToken',res.token);
         });
         localStorage.setItem('creds', JSON.stringify(details));
-        this.commonService.dismissSpinner();
+        // this.commonService.dismissSpinner();
+        if(!isAutoLogin)
         this.router.navigate(['/dashboard'], { replaceUrl: true });
       }, (error) => {
         reject(error);

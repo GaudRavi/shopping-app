@@ -1,19 +1,20 @@
-import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentChecked, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { SwiperComponent } from 'swiper/angular';
 import { SwiperOptions } from 'swiper';
-// import SwiperCore, { Pagination } from 'swiper/core';
+import SwiperCore, { Pagination } from 'swiper';
 import { FirestorDBService } from '../../shared/services/firestore-db.service';
 import { DashboardSales } from './models/DashboardSales';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CommonService } from '../../shared/services/common.service';
 
+SwiperCore.use([Pagination]);
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
   encapsulation:ViewEncapsulation.None
 })
-export class DashboardPage implements OnInit, OnDestroy {
+export class DashboardPage implements OnInit, OnDestroy, AfterContentChecked {
   @ViewChild('swiper') swiper!: SwiperComponent;
   dashboardSales!: DashboardSales;
   salesTargetControl: FormControl;
@@ -36,6 +37,12 @@ export class DashboardPage implements OnInit, OnDestroy {
   ) {
     this.salesTargetControl = this.fb.control(0, [Validators.min(0)]);
     this.isOnline = this.commonService.isOnline;
+  }
+
+  ngAfterContentChecked() {
+    if (this.swiper) {
+      this.swiper.updateSwiper({});
+    }
   }
 
   ngOnInit() {

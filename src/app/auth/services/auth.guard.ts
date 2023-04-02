@@ -16,10 +16,11 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.commonService.isOnline ? this.authservice.isUserLogedIn.pipe(
-      take(1),
-      map(res => res)
-    ) : true
+    // return this.commonService.isOnline ? this.authservice.isUserLogedIn.pipe(
+    //   take(1),
+    //   map(res => res)
+    // ) : true
+    return !!JSON.parse(localStorage.getItem('creds')!) ? true : false
   }
   
 }

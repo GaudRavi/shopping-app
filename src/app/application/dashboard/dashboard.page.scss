@@ -9,3 +9,26 @@
 .dashboard-content {
     --background: #f3f3f3;
 }
+
+.swiper{
+    overflow: visible !important;
+}
+
+.swiper-pagination-bullets {
+    bottom: -30px !important;
+}
+
+.swiper-pagination-bullet {
+    width: 23px;
+    height: 8px;
+    display: inline-block;
+    border-radius: 4px;
+    background: #eef8f8;
+    border:0.6px solid  #00807d;
+    opacity:1;
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
+    background: #00807d;
+}

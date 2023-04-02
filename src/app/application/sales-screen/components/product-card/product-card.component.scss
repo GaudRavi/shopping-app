@@ -1,0 +1,37 @@
+/* Container holding the image and the text */
+.main-card {
+    position: relative;
+    height: 120px;
+    width: 100%;
+    border-radius: 10px;
+    color: white;
+}
+
+/* Top left text */
+.price-tag {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    font-size: 13px;
+    color: #fff;
+    padding: 3px 10px;
+    text-decoration: line-through solid white 1px;
+}
+
+/* Top right text */
+.discount-tag {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    font-size: 13px;
+    color: #fff;
+    padding: 3px 10px;
+}
+
+/* Centered text */
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

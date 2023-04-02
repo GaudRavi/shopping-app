@@ -1,42 +1,43 @@
-.sells-header{
-    ion-toolbar {
-        --background: #00a5a3;
-        --color: white;
-    }
+.sells-header {
+  ion-toolbar {
+    --background: #00a5a3;
+    --color: white;
+  }
 }
 
 .sells-content {
-    --background: #f3f3f3;
+  --background: #f3f3f3;
 }
 
-.categories-buttons{
-    overflow: auto;
-    white-space: nowrap;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
+.categories-buttons {
+  overflow: auto;
+  white-space: nowrap;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0 0.5rem;
 }
 
 // Hide scrollbar
 .categories-buttons::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+  display: none; /* Chrome, Safari and Opera */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
-.category-btn{
-    font-weight: 600;
-    color: #005E5D;
-    background: #DAF5F5;
-    border-radius: 8px;
-    line-height: 16px;
-    padding: 4px 16px;
-    height: 35px;
-    display: flex;
-    align-items: center;
+.category-btn {
+  color: #005E5D;
+  background: #DAF5F5;
+  border-radius: 8px;
+  line-height: 16px;
+  padding: 4px 16px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #005E5D;
 }
 
-.category-btn.activeCategory{
-    background: #005E5D;
-    color: #E6F3F3;
+.category-btn.activeCategory {
+  background: #005E5D;
+  color: #E6F3F3;
 }

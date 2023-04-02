@@ -1,5 +1,5 @@
-import { Categories } from "./categories";
+import { Category } from "./Category";
 
 export interface salesScreenStateModal {
-    categories: {categories: Categories[], id: string}
+    categories: {categories: Category[], id: string}
 }

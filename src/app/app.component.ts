@@ -40,6 +40,7 @@ export class AppComponent {
   async checkIsTokenExpired(){
     const idToken = await localStorage.getItem('idToken');
     if (idToken && this.commonService.isOnline){
+      this.router.navigate(['/dashboard'], { replaceUrl: true });
       await this.authservice.initAutoLogin();
       SplashScreen.hide();
     }
